@@ -19,6 +19,8 @@ public class ParticleSystemExampleGame : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
+        RainParticleSystem rain = new(this, new Rectangle(100, -20, 500, 10));
+        Components.Add(rain);
 
         base.Initialize();
     }
