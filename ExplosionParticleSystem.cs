@@ -23,7 +23,7 @@ public class ExplosionParticleSystem : ParticleSystem
 
     protected override void InitializeParticle(ref Particle p, Vector2 where)
     {
-        var velocity = RandomHelper.NextDirection() * RandomHelper.NextFloat(40, 500);
+        var velocity = RandomHelper.NextDirection() * RandomHelper.NextFloat(40, 200);
 
         var lifetime = RandomHelper.NextFloat(0.5f, 1.0f);
 
@@ -45,7 +45,7 @@ public class ExplosionParticleSystem : ParticleSystem
         float alpha = 4 * normalizedLifetime * (1 - normalizedLifetime);
         particle.Color = Color.White * alpha;
 
-        particle.Scale = .75f + .25f * normalizedLifetime;
+        particle.Scale = .1f + .25f * normalizedLifetime;
     }
 
     public void PlaceExplosion(Vector2 where) => AddParticles(where);

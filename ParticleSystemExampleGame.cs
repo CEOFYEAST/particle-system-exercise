@@ -47,10 +47,12 @@ public class ParticleSystemExampleGame : Game
         MouseState currentMouse = Mouse.GetState();
         Vector2 mousePosition = new Vector2(currentMouse.X, currentMouse.Y);
 
-        if (currentMouse.LeftButton == ButtonState.Pressed && currentMouse.LeftButton == ButtonState.Released)
+        if (currentMouse.LeftButton == ButtonState.Pressed && priorMouse.LeftButton == ButtonState.Released)
         {
             _explosions.PlaceExplosion(mousePosition);
         }
+
+        priorMouse = currentMouse;
 
         base.Update(gameTime);
     }
