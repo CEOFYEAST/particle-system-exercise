@@ -4,13 +4,18 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ParticleSystemExercise;
 
-public class ParticleSystemExampleGame : Game
+public class ParticleSystemExampleGame : Game, IParticleEmitter
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
     private MouseState priorMouse;
     private ExplosionParticleSystem _explosions;
+    private FireworkParticleSystem _fireworks;
+
+    public Vector2 Position { get; set; }
+
+    public Vector2 Velocity { get; set; }
 
     public ParticleSystemExampleGame()
     {
@@ -27,6 +32,12 @@ public class ParticleSystemExampleGame : Game
 
         _explosions = new ExplosionParticleSystem(this, 20);
         Components.Add(_explosions);
+
+        _fireworks = new(this, 20);
+        Components.Add(_fireworks);
+
+        PixieParticleSystem pixie = new PixieParticleSystem(this, this);
+        Components.Add(pixie);
 
         base.Initialize();
     }
@@ -51,6 +62,14 @@ public class ParticleSystemExampleGame : Game
         {
             _explosions.PlaceExplosion(mousePosition);
         }
+
+        if (currentMouse.RightButton == ButtonState.Pressed && priorMouse.RightButton == ButtonState.Released)
+        {
+            _fireworks.PlaceFirework(mousePosition);
+        }
+
+        Velocity = mousePosition - Position;
+        Position = mousePosition;
 
         priorMouse = currentMouse;
 
